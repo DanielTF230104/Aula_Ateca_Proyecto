@@ -1,0 +1,49 @@
+<div class="container mt-4">
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Proyecto</th>
+          <th>Material</th>
+          <th>Cantidad</th>
+          <th>Alumnos</th>
+          <th>Grupo</th>
+          <th>Profesor</th>
+          <th>Preparación</th>
+          <th>Fecha</th>
+          <th>Hora Inicio</th>
+          <th>Hora Fin</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reserva of reservas | filtroReservas:filtroTexto">
+          <td class="text-nowrap text-truncate" style="max-width: 120px;">
+            {{reserva.nombreProyecto}}
+          </td>
+          <td>{{ reserva.material }}</td>
+          <td>{{ reserva.cantidadMaterial }}</td>
+          <td>{{ reserva.alumnos }}</td>
+          <td>{{ reserva.grupo }}</td>
+          <td>{{ reserva.profesor }}</td>
+          <td>{{ reserva.preparacion }}</td>
+          <td>{{ reserva.fecha }}</td>
+          <td>{{ reserva.horaInicio }}</td>
+          <td>{{ reserva.horaFin }}</td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group">
+              <button class="btn btn-sm btn-primary" (click)="editarReserva(reserva.id)">Editar</button>
+              <button class="btn btn-sm btn-danger" (click)="eliminarReserva(reserva.id)">Borrar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Botón volver -->
+  <div class="mt-3">
+    <button class="btn btn-secondary" (click)="volverInicio()" >Volver al inicio</button>
+  </div>
+</div>

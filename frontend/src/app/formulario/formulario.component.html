@@ -1,0 +1,170 @@
+<div class="container mt-4">
+  <h2 class="text-center">Formulario de Reserva</h2>
+
+  <form (ngSubmit)="guardarReserva()" #formularioReserva="ngForm">
+
+    <!-- Nombre del Proyecto -->
+    <div class="mb-3">
+      <label for="nombreProyecto" class="form-label">Nombre del proyecto</label>
+      <input
+        type="text"
+        id="nombreProyecto"
+        class="form-control"
+        name="nombreProyecto"
+        [(ngModel)]="form.nombreProyecto"
+        required
+      />
+    </div>
+
+    <!-- Material -->
+    <div class="mb-3">
+      <label for="material" class="form-label">Material a utilizar</label>
+      <select
+        id="material"
+        class="form-select"
+        name="material"
+        (change)="form.cantidadMaterial = 1"
+        [(ngModel)]="form.material"
+        required
+      >
+        <option value="" disabled selected>Seleccione un material</option>
+        <option *ngFor="let mat of materiales" [value]="mat.nombre">
+          {{ mat.nombre }} (Disponibles: {{ mat.cantidad }})
+        </option>
+      </select>
+    </div>
+
+    <!-- Cantidad de material -->
+    <div class="mb-3">
+      <label for="cantidad" class="form-label">Cantidad de material</label>
+      <input
+        type="number"
+        id="cantidad"
+        class="form-control"
+        name="cantidad"
+        [(ngModel)]="form.cantidadMaterial"
+        [min]="1"
+        [max]="obtenerMaximoDisponible(form.material)"
+        required
+      />
+    </div>
+
+    <!-- Número de alumnos -->
+    <div class="mb-3">
+      <label for="alumnos" class="form-label">Número de alumnos</label>
+      <input
+        type="number"
+        id="alumnos"
+        class="form-control"
+        name="alumnos"
+        [(ngModel)]="form.alumnos"
+        [min]="1"
+        required
+      />
+    </div>
+
+    <!-- Grupo -->
+    <div class="mb-3">
+      <label for="grupo" class="form-label">Grupo</label>
+      <select
+        id="grupo"
+        class="form-select"
+        name="grupo"
+        [(ngModel)]="form.grupo"
+        required
+      >
+        <option value="" disabled selected>Seleccione un grupo</option>
+        <option *ngFor="let grupo of grupos" [value]="grupo">{{ grupo }}</option>
+      </select>
+    </div>
+
+    <!-- Profesor -->
+    <div class="mb-3">
+      <label for="profesor" class="form-label">Profesor a cargo</label>
+      <input
+        type="text"
+        id="profesor"
+        class="form-control"
+        name="profesor"
+        [(ngModel)]="form.profesor"
+        required
+      />
+    </div>
+
+    <!-- Fecha -->
+    <div class="mb-3">
+      <label for="fecha" class="form-label">Fecha de reserva</label>
+      <input
+        type="date"
+        id="fecha"
+        name="fecha"
+        class="form-control"
+        [(ngModel)]="form.fecha"
+        required
+      />
+    </div>
+
+    <!-- Hora de inicio -->
+    <div class="mb-3">
+      <label for="horaInicio" class="form-label">Hora de inicio</label>
+      <input
+        type="time"
+        id="horaInicio"
+        name="horaInicio"
+        class="form-control"
+        [(ngModel)]="form.horaInicio"
+        required
+      />
+    </div>
+
+    <!-- Hora de fin -->
+    <div class="mb-3">
+      <label for="horaFin" class="form-label">Hora de finalización</label>
+      <input
+        type="time"
+        id="horaFin"
+        name="horaFin"
+        class="form-control"
+        [(ngModel)]="form.horaFin"
+        required
+      />
+    </div>
+
+    <!-- Preparación -->
+    <div class="form-check mb-3">
+      <input
+        type="checkbox"
+        id="preparacion"
+        class="form-check-input"
+        name="preparacion"
+        [(ngModel)]="form.preparacion"
+      />
+      <label class="form-check-label" for="preparacion">
+        ¿El profesorado preparará el material?
+      </label>
+    </div>
+
+    <!-- Botones -->
+    <div class="d-flex justify-content-center gap-3">
+      <button type="submit" class="btn btn-primary">
+        {{ modoEdicion ? 'Actualizar Reserva' : 'Crear Reserva' }}
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="volverInicio()"
+      >
+        Volver al inicio
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="verReservas()"
+      >
+        Ver Reservas
+      </button>
+    </div>
+  </form>
+</div>
